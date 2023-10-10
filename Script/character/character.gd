@@ -2,6 +2,7 @@ extends Node2D
 
 # var init
 var isMove:bool = true
+@export var moveSpeed:float = 100.0
 
 # node
 @onready var m_root = get_node(".")
@@ -14,9 +15,9 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	playerMove(_delta)
+	PlayerMove(_delta)
 
-func playerMove(_delta):
+func PlayerMove(_delta):
 	print(_delta)
 	# 角色移動
 	var moveX = 0
@@ -39,8 +40,9 @@ func playerMove(_delta):
 		playAni = "move_side"
 		moveX = moveX - 1
 	
-	# 動畫更換
+	# 動
 	if moveX != 0 or moveY != 0:
+		# 動畫更換
 		isMove = true
 		m_bodyAni.play(playAni)
 		# 換方向
@@ -49,8 +51,8 @@ func playerMove(_delta):
 		elif moveX < 0:
 			m_bodyNode.scale = Vector2(-1.0 ,1.0)
 		# 移動
-		m_root.position.x = m_root.position.x + moveX
-		m_root.position.y = m_root.position.y + moveY 
+		m_root.position.x = m_root.position.x + (moveX * moveSpeed * _delta)
+		m_root.position.y = m_root.position.y + (moveY * moveSpeed * _delta)
 	# 不動
 	elif isMove:
 		isMove = false
