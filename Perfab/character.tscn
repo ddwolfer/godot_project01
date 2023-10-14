@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://c6rxhkb3ghw4b"]
+[gd_scene load_steps=32 format=3 uid="uid://c6rxhkb3ghw4b"]
 
 [ext_resource type="Script" path="res://Script/character/character.gd" id="1_73e44"]
 [ext_resource type="Texture2D" uid="uid://bdwyt3yvbvyk5" path="res://Resource/Character/body/char1.png" id="1_aaxnd"]
+[ext_resource type="Texture2D" uid="uid://claxafsuqukft" path="res://Resource/Character/clothes/basic.png" id="3_niey1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_db8qe"]
 atlas = ExtResource("1_aaxnd")
@@ -201,22 +202,59 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsw54"]
+atlas = ExtResource("3_niey1")
+region = Rect2(512, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tdkrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsw54")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"move_side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
 [node name="Character" type="Node2D"]
 scale = Vector2(5, 5)
 script = ExtResource("1_73e44")
 
-[node name="clothes" type="Node2D" parent="."]
-
-[node name="Top" type="Node2D" parent="clothes"]
-
-[node name="Pants" type="Node2D" parent="clothes"]
-
-[node name="Shoe" type="Node2D" parent="clothes"]
-
 [node name="Body" type="Node2D" parent="."]
-scale = Vector2(-1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_4xwmp")
-animation = &"idle"
+animation = &"move_side"
+frame_progress = 0.219201
+
+[node name="clothes" type="Node2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="Top" type="Node2D" parent="clothes"]
+position = Vector2(2.08165e-12, -16)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="clothes/Top"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+sprite_frames = SubResource("SpriteFrames_tdkrv")
+animation = &"move_up"
+
+[node name="Pants" type="Node2D" parent="clothes"]
+
+[node name="Shoe" type="Node2D" parent="clothes"]
